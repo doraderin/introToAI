@@ -1,0 +1,74 @@
+class xoxoGame:
+    
+    scan = input
+    
+    def __init__(self):
+        self.playerChar = "x" # tris to maximixe
+        self.AIChar = "o" # tries to minimize
+        self.gameBoard = [
+            ["-", "-", "-"],
+            ["-", "-", "-"],
+            ["-", "-", "-"],
+        ]
+
+    def startGame(self, args):
+        print("Enter character: ")
+        self.playerChar = self.scan()
+        self.gameStart(self.playerChar)
+    
+    
+    def gameStart(self, playerChar):
+        print("enter position")
+        pos = int(self.scan())
+        self.newPosition(pos, "x")
+            
+    
+    # pos lokasyonuna character x/o'sunu yerlestiriyo
+    def newPosition(self, pos, character):
+        current = 1
+        for i in range(1, len(self.gameBoard) + 1):
+            for j in range(1, len(self.gameBoard[0]) + 1):
+                if current == pos:
+                    self.gameBoard[i - 1][j - 1] = character
+                current += 1
+    	
+        # TESTTTTTT
+        """
+        for i in range(len(self.gameBoard)):
+            for j in range(len(self.gameBoard[i])):
+                print(self.gameBoard[i][j], end=" ")
+            print()
+        """
+    
+    # x y capraz kazanma varmı bakıyo iki karakter içinde. minimax -> x maxime etmeye çalışıyo. o minimize etmeye çalışıyo
+    def win(self, character):
+        for i in range(len(self.gameBoard)):
+            if (self.gameBoard[i][0] == character and 
+                self.gameBoard[i][1] == character and 
+                self.gameBoard[i][2] == character):
+                return 1 if character == "x" else -1
+            elif (self.gameBoard[0][i] == character and 
+                  self.gameBoard[1][i] == character and 
+                  self.gameBoard[2][i] == character):
+                return 1 if character == "x" else -1
+            elif (self.gameBoard[0][0] == character and 
+                  self.gameBoard[1][1] == character and 
+                  self.gameBoard[2][2] == character):
+                return 1 if character == "x" else -1
+        return 0
+
+    # checks hangi kareler boş ve onları liste halinde return ediyo
+    def emptyLocs(self):
+        locCount = 1
+        locs = []
+        for i in range(len(self.gameBoard)):
+            for j in range(len(self.gameBoard[i])):
+                if self.gameBoard[i][j] == "-":
+                    locs.append(locCount)
+                locCount += 1
+        return locs
+
+# oyunu başlauto
+if __name__ == "__main__":
+    game = xoxoGame()
+    game.startGame([])
