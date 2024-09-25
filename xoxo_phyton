@@ -1,7 +1,6 @@
 class xoxoGame:
     
     def __init__(self):
-        self.scan = input
         self.playerChar = "x"  # tris to maximixe
         self.AIChar = "o"  # tries to minimize
         self.gameBoard = [
@@ -12,8 +11,7 @@ class xoxoGame:
 
     def startGame(self, args):
         print("You are x playing against o")
-        print("enter position")
-        pos = int(self.scan())
+        pos = int(input("enter position"))
         self.newPosition(pos, "x")
 
     # pos lokasyonuna character x/o'sunu yerlestiriyo
